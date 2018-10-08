@@ -37,19 +37,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: PA5_wyuan
+all: PA5_wyuan_tking
 
 # Tool invocations
-PA5_wyuan: $(OBJS) $(USER_OBJS)
+PA5_wyuan_tking: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "PA5_wyuan" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "PA5_wyuan_tking" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) PA5_wyuan
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) PA5_wyuan_tking
 	-@echo ' '
 
 .PHONY: all clean dependents

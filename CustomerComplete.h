@@ -14,7 +14,6 @@ class CustomerComplete: public CustomerEvent {
 public:
 	CustomerComplete();
 	virtual ~CustomerComplete();
-	void action();
 };
 
 #endif /* CUSTOMERCOMPLETE_H_ */

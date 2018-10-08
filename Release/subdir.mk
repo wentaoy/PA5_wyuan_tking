@@ -6,6 +6,7 @@
 CPP_SRCS += \
 ../Customer.cpp \
 ../CustomerArrival.cpp \
+../CustomerComplete.cpp \
 ../CustomerEvent.cpp \
 ../Event.cpp \
 ../EventQueue.cpp \
@@ -19,6 +20,7 @@ O_SRCS += \
 OBJS += \
 ./Customer.o \
 ./CustomerArrival.o \
+./CustomerComplete.o \
 ./CustomerEvent.o \
 ./Event.o \
 ./EventQueue.o \
@@ -29,6 +31,7 @@ OBJS += \
 CPP_DEPS += \
 ./Customer.d \
 ./CustomerArrival.d \
+./CustomerComplete.d \
 ./CustomerEvent.d \
 ./Event.d \
 ./EventQueue.d \
