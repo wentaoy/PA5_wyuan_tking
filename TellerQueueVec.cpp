@@ -18,3 +18,16 @@ TellerQueueVec::~TellerQueueVec() {
 void TellerQueueVec::addTellerQueue(TellerQueue* aline){
 	lines.push_back(aline);
 }
+
+TellerQueue* TellerQueueVec::getTellerQueue(int id){
+	return lines[id];
+}
+
+int TellerQueueVec::getQueueNum(){
+	return lines.size();
+}
+
+//add customer into the vector
+Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
+	return nullptr;
+}

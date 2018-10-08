@@ -43,18 +43,17 @@ int main(int argc, char *argv[]) {
 		eq.getHead()->data->action();
 		eq.deleteHead();
 	}
-	commonLine->displayCusTime();
+	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
 	//Initialize tellers
-	for (int i = 0; i < tellerNum; i++){
-		Teller* teller = new Teller(i);
-		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
-	}
-
-//	for (int i = 0; i < customerNum; i++) {
-//		tellerLine.remove();
-//		std::cout << tellerLine.isEmpty() << std::endl;
+//	for (int i = 0; i < tellerNum; i++){
+//		Teller* teller = new Teller(i);
+//		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
 //	}
 
+	for (int i = 0; i < customerNum; i++) {
+		commonLine->remove();
+	}
+	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
 	return EXIT_SUCCESS;
 }
 

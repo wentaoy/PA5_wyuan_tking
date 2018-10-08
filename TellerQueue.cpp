@@ -58,3 +58,13 @@ void TellerQueue::displayCusTime() {
 		tmp = tmp->link;
 	}
 }
+
+int TellerQueue::customerNum() {
+	CustomerNode* p = head;
+	int count = 0;
+	while (p != NULL) {
+		++count;
+		p = p->link;
+	}
+	return count;
+}

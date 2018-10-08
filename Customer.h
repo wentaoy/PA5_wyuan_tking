@@ -14,9 +14,12 @@ public:
 	Customer(float arrTime);
 	float getArrivalTime();
 	void setArrivalTime(float);
+	float getLeaveTime();
+	void setLeaveTime(float time);
 
 private:
 	float arrivalTime;
+	float leaveTime;
 };
 
 #endif /* CUSTOMER_H_ */

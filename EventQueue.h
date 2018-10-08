@@ -27,6 +27,7 @@ public:
 	Node* getHead();
 	void deleteHead();
 	bool isEmpty();
+	int eventNum();
 	virtual ~EventQueue();
 private:
 	Node *head,*tail;

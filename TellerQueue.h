@@ -10,10 +10,9 @@
 
 #include "Teller.h"
 #include "Customer.h"
-struct CustomerNode
-{
-    Customer* data;
-    CustomerNode *link;
+struct CustomerNode {
+	Customer* data;
+	CustomerNode *link;
 };
 
 class TellerQueue {
@@ -24,8 +23,9 @@ public:
 	bool isEmpty();
 	virtual ~TellerQueue();
 	void displayCusTime();
+	int customerNum();
 private:
-	CustomerNode *head,*tail;
+	CustomerNode *head, *tail;
 };
 
 #endif /* TELLERQUEUE_H_ */

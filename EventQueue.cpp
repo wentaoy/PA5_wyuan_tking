@@ -87,3 +87,14 @@ void EventQueue::deleteHead() {
 bool EventQueue::isEmpty(){
 	return head == NULL;
 }
+
+int EventQueue::eventNum(){
+	Node* p = head;
+	int count = 0;
+	while (p != NULL)
+	{
+	  ++count;
+	  p = p->link;
+	}
+	return count;
+}

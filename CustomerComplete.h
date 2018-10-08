@@ -13,8 +13,11 @@
 class CustomerComplete: public CustomerEvent {
 public:
 	CustomerComplete();
+	CustomerComplete(Teller* ateller);
 	virtual ~CustomerComplete();
 	virtual void action();
+private:
+	Teller* teller;
 };
 
 #endif /* CUSTOMERCOMPLETE_H_ */

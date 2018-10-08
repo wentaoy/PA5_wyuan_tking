@@ -8,7 +8,7 @@
 #ifndef TELLERQUEUEVEC_H_
 #define TELLERQUEUEVEC_H_
 
-#include <vector>;
+#include <vector>
 #include "TellerQueue.h"
 
 class TellerQueueVec {
@@ -16,6 +16,9 @@ public:
 	TellerQueueVec();
 	virtual ~TellerQueueVec();
 	void addTellerQueue(TellerQueue* aline);
+	TellerQueue* getTellerQueue(int id);
+	int getQueueNum();
+	Customer* getNextCustomer(Teller* ateller);
 private:
 	std::vector<TellerQueue*> lines;
 };

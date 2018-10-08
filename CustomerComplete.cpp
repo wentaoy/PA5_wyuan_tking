@@ -8,16 +8,17 @@
 #include "CustomerComplete.h"
 #include <iostream>
 
-CustomerComplete::CustomerComplete() {
-	// TODO Auto-generated constructor stub
-
+CustomerComplete::CustomerComplete(Teller* ateller) :
+		CustomerEvent(), teller(ateller) {
 }
 
 CustomerComplete::~CustomerComplete() {
 	// TODO Auto-generated destructor stub
 }
 
-void CustomerComplete::action(){
-	std::cout << "customer stays in bank for"<< time - customer->getArrivalTime() << std::endl;
+void CustomerComplete::action() {
+	std::cout << "customer stays in bank for"
+			<< time - customer->getArrivalTime() << std::endl;
+	customer->setLeaveTime(time);
 	tellerLine->remove();
 }
