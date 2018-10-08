@@ -6,24 +6,19 @@
  */
 #include "Teller.h"
 #include <stdlib.h>
-const int IDLEMAX = 600;
-const bool INWORK = 1;
-const bool REST = 0;
+
 
 Teller::Teller() :
-		idleTime(rand() % IDLEMAX), state(REST) {
+		idleTime(rand() % IDLEMAX), id(0),state(REST) {
 }
 
-Teller::Teller(bool astate) :
-		idleTime(rand() % IDLEMAX), state(astate) {
+
+Teller::Teller(int aid) :
+		idleTime(rand() % IDLEMAX), id(aid),state(REST) {
 }
 
-Teller::Teller(int aidleTime) :
-		idleTime(aidleTime), state(REST) {
-}
-
-Teller::Teller(int aidleTime, bool astate) :
-		idleTime(aidleTime), state(astate) {
+Teller::Teller(int aidleTime, int aid, bool astate) :
+		idleTime(aidleTime), id(aid), state(astate) {
 }
 
 int Teller::getIdleTime() {

@@ -16,6 +16,7 @@
 #include "TellerQueue.h"
 #include "CustomerEvent.h"
 #include "CustomerArrival.h"
+#include "TellerQueueVec.h"
 
 int main(int argc, char *argv[]) {
 	const int customerNum = atoi(argv[1]);
@@ -27,7 +28,8 @@ int main(int argc, char *argv[]) {
 		seed = atoi(argv[5]);
 	}
 	srand(seed);
-	//Initialize EventQueue, TellQueue
+	//Initialize EventQueue, TellQueueVec
+	TellerQueueVec* commonLineVec = new TellerQueueVec();
 	TellerQueue* commonLine = new TellerQueue();
 	EventQueue eq = EventQueue();
 	//create user specified number of customers
@@ -42,12 +44,17 @@ int main(int argc, char *argv[]) {
 		eq.deleteHead();
 	}
 	commonLine->displayCusTime();
+	//Initialize tellers
+	for (int i = 0; i < tellerNum; i++){
+		Teller* teller = new Teller(i);
+		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
+	}
+
 //	for (int i = 0; i < customerNum; i++) {
 //		tellerLine.remove();
 //		std::cout << tellerLine.isEmpty() << std::endl;
 //	}
 
-//Teller teller1();
 	return EXIT_SUCCESS;
 }
 
