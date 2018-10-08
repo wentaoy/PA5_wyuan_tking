@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < customerNum; i++) {
 		commonLine->remove();
 	}
+	std::cout << "hello" << std::endl;
 	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
 	return EXIT_SUCCESS;
 }
