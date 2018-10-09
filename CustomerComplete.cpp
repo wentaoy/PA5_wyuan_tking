@@ -21,4 +21,7 @@ void CustomerComplete::action() {
 			<< time - customer->getArrivalTime() << std::endl;
 	customer->setLeaveTime(time);
 	tellerLines->removeCustomer(customer);
+	// store customer into the vector of completed customers
+	// teller gets next customer if nullptr then set teller to rest and create new tellerevent after idle time
+	// if there is next customer then create new customercomplete event after a random service time
 }

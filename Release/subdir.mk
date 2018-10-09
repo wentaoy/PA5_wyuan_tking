@@ -11,6 +11,7 @@ CPP_SRCS += \
 ../Event.cpp \
 ../EventQueue.cpp \
 ../Teller.cpp \
+../TellerEvent.cpp \
 ../TellerQueue.cpp \
 ../TellerQueueVec.cpp \
 ../qSim.cpp 
@@ -26,6 +27,7 @@ OBJS += \
 ./Event.o \
 ./EventQueue.o \
 ./Teller.o \
+./TellerEvent.o \
 ./TellerQueue.o \
 ./TellerQueueVec.o \
 ./qSim.o 
@@ -38,6 +40,7 @@ CPP_DEPS += \
 ./Event.d \
 ./EventQueue.d \
 ./Teller.d \
+./TellerEvent.d \
 ./TellerQueue.d \
 ./TellerQueueVec.d \
 ./qSim.d 
