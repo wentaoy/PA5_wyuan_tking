@@ -6,9 +6,10 @@
  */
 
 #include "TellerQueueVec.h"
+#include <iostream>
 
 TellerQueueVec::TellerQueueVec() {
-	// TODO Auto-generated constructor stub
+	lines = std::vector<TellerQueue*>();
 }
 
 TellerQueueVec::~TellerQueueVec() {
@@ -35,8 +36,8 @@ Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
 		return lines[0]->getFirstCust();
 	}else{
 		//loop through the rest starting with line corresponding to teller
-		int numchecked = 1;
-		int location = ateller->getid() - 1;
+		int unsigned numchecked = 1;
+		int unsigned location = ateller->getid();
 		while(numchecked < lines.size()){
 			if(!lines[location]->isEmpty()){
 				return lines[location]->getFirstCust();
@@ -51,5 +52,32 @@ Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
 		}
 		//if they are all empty return a null pointer
 		return nullptr;
+	}
+}
+void TellerQueueVec::addCustomer(Customer* acustomer){
+	if(lines.size() == 1){
+		lines[0]->add(acustomer);
+	}else{
+		int shortest = 0;
+		for(int i = 0; i  < lines.size(); i++){
+			if(lines[i]->customerNum() < lines[shortest]->customerNum()){
+				shortest = i;
+			}
+		}
+		lines[shortest]->add(acustomer);
+	}
+}
+
+void TellerQueueVec::removeCustomer(Customer* acustomer){
+	if(lines.size() == 1){
+		lines[0]->remove();
+	}else{
+		for(int i = 0; i < lines.size(); i++){
+			if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
+				lines[i]->remove();
+			}else{
+			std::cout<<"The customer isn't there."<<std::endl;
+			}
+		}
 	}
 }

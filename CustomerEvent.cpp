@@ -8,11 +8,11 @@
 #include "CustomerEvent.h"
 
 CustomerEvent::CustomerEvent() :
-		Event(), customer(new Customer(1)), tellerLine(new TellerQueue()) {
+		Event(), customer(new Customer(1)), tellerLines(new TellerQueueVec()) {
 }
 
-CustomerEvent::CustomerEvent(float time, Customer* aCustomer, TellerQueue* aTellLine) :
-		Event(time), customer(aCustomer), tellerLine(aTellLine) {
+CustomerEvent::CustomerEvent(float time, Customer* aCustomer, TellerQueueVec* aTellLine) :
+		Event(time), customer(aCustomer), tellerLines(aTellLine) {
 }
 CustomerEvent::~CustomerEvent() {
 	// do not delete the customer object

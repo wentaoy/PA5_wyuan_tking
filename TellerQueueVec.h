@@ -19,6 +19,8 @@ public:
 	TellerQueue* getTellerQueue(int id);
 	int getQueueNum();
 	Customer* getNextCustomer(Teller* ateller);
+	void addCustomer(Customer* acustomer);
+	void removeCustomer(Customer* acustomer);
 private:
 	std::vector<TellerQueue*> lines;
 };

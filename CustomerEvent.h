@@ -10,17 +10,17 @@
 
 #include "Event.h"
 #include "Customer.h"
-#include "TellerQueue.h"
+#include "TellerQueueVec.h"
 
 class CustomerEvent: public Event {
 public:
 	CustomerEvent();
-	CustomerEvent(float, Customer*, TellerQueue*);
+	CustomerEvent(float, Customer*, TellerQueueVec*);
 	virtual ~CustomerEvent();
 	virtual void action();
 protected:
 	Customer* customer;
-	TellerQueue* tellerLine;
+	TellerQueueVec* tellerLines;
 };
 
 #endif /* CUSTOMEREVENT_H_ */

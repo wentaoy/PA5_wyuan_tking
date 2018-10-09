@@ -20,5 +20,5 @@ void CustomerComplete::action() {
 	std::cout << "customer stays in bank for"
 			<< time - customer->getArrivalTime() << std::endl;
 	customer->setLeaveTime(time);
-	tellerLine->remove();
+	tellerLines->removeCustomer(customer);
 }

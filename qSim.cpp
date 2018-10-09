@@ -31,28 +31,48 @@ int main(int argc, char *argv[]) {
 	//Initialize EventQueue, TellQueueVec
 	TellerQueueVec* commonLineVec = new TellerQueueVec();
 	TellerQueue* commonLine = new TellerQueue();
+	commonLineVec->addTellerQueue(commonLine);
 	EventQueue eq = EventQueue();
 	//create user specified number of customers
 	for (int i = 0; i < customerNum; i++) {
 		float custArrivalTime = simulateTime * rand() / float(RAND_MAX);
 		Customer* cust = new Customer(custArrivalTime);
-		CustomerArrival* ca1= new CustomerArrival(custArrivalTime, cust, commonLine);
+		CustomerArrival* ca1= new CustomerArrival(custArrivalTime, cust, commonLineVec);
 		eq.insert(ca1);
 	}
+	//vector for tellers
+	std::vector<Teller*> tellerVec = std::vector<Teller*>();
+	//Initialize tellers
+	for (int i = 0; i < tellerNum; i++){
+		Teller* teller = new Teller(i);
+		tellerVec.push_back(teller);
+		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
+	}
+
+	//starts the simulation
 	while (!eq.isEmpty()) {
+		for (int i = 0; i < tellerNum; i++){
+			if(tellerVec[i]->getState()==INWORK){
+				if(commonLineVec->getNextCustomer(tellerVec[i]) == nullptr){
+					tellerVec[i]->setState(REST);
+					tellerVec[i]->getIdleTime();//goes into the event time
+					//Create the teller Event to come back to work after idleTime
+				}
+				else {
+					// create the customer complete event after random service time
+
+				}
+			}
+		}
 		eq.getHead()->data->action();
 		eq.deleteHead();
 	}
-	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
-	//Initialize tellers
-//	for (int i = 0; i < tellerNum; i++){
-//		Teller* teller = new Teller(i);
-//		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
-//	}
+	std::cout << "Number of customers in common line is " << commonLine->customerNum() << std::endl;
 
-	for (int i = 0; i < customerNum; i++) {
-		commonLine->remove();
-	}
+
+//	for (int i = 0; i < customerNum; i++) {
+//		commonLineVec->removeCustomer();
+//	}
 	std::cout << "hello" << std::endl;
 	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
 	return EXIT_SUCCESS;

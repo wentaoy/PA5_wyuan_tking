@@ -13,8 +13,8 @@ CustomerArrival::CustomerArrival() :
 }
 
 CustomerArrival::CustomerArrival(float time, Customer* aCustomer,
-		TellerQueue* aTellLine) :
-		CustomerEvent(time, aCustomer, aTellLine) {
+		TellerQueueVec* tellLines) :
+		CustomerEvent(time, aCustomer, tellLines) {
 }
 
 CustomerArrival::~CustomerArrival() {
@@ -22,7 +22,7 @@ CustomerArrival::~CustomerArrival() {
 }
 
 void CustomerArrival::action(){
-	tellerLine->add(customer);
+	tellerLines->addCustomer(customer);
 	std::cout << "Customer Arrives at " << customer->getArrivalTime() <<" added to tellerLine." << std::endl;
 }
 

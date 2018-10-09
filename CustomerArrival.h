@@ -9,11 +9,12 @@
 #define CUSTOMERARRIVAL_H_
 
 #include "CustomerEvent.h"
+#include "TellerQueueVec.h"
 
 class CustomerArrival: public CustomerEvent {
 public:
 	CustomerArrival();
-	CustomerArrival(float, Customer*, TellerQueue*);
+	CustomerArrival(float, Customer*, TellerQueueVec*);
 	void action();
 	virtual ~CustomerArrival();
 };
