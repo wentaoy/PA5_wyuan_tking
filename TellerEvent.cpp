@@ -7,7 +7,7 @@
 
 #include "TellerEvent.h"
 
-TellerEvent::TellerEvent() : Event(){
+TellerEvent::TellerEvent() : Event(), teller(new Teller()){
 	// TODO Auto-generated constructor stub
 
 }
@@ -18,8 +18,10 @@ TellerEvent::~TellerEvent() {
 
 void TellerEvent::action(){
 	//set the teller'state to INWORK
+	teller->setState(INWORK);
 	//ask for next consumer
 	//if no consumer set state to REST
 	//if there is next consumer create consumercomplete event with after random service time
+
 }
 
