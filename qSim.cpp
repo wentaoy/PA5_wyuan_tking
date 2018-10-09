@@ -19,6 +19,7 @@
 #include "TellerQueueVec.h"
 
 int main(int argc, char *argv[]) {
+	//reading command line
 	const int customerNum = atoi(argv[1]);
 	const int tellerNum = atoi(argv[2]);
 	const float simulateTime = atof(argv[3]);
@@ -28,53 +29,52 @@ int main(int argc, char *argv[]) {
 		seed = atoi(argv[5]);
 	}
 	srand(seed);
-	//Initialize EventQueue, TellQueueVec
+
+	//Initialize TellQueueVec and the tellqueue for common line
 	TellerQueueVec* commonLineVec = new TellerQueueVec();
 	TellerQueue* commonLine = new TellerQueue();
 	commonLineVec->addTellerQueue(commonLine);
-	EventQueue eq = EventQueue();
+
+	//Initialize TellerQueueVec and tellqueues for each teller
+	TellerQueueVec* mutiLineVec = new TellerQueueVec();
+	for (int i = 0; i < tellerNum; i++){
+		TellerQueue* mutiLine = new TellerQueue();
+		mutiLineVec->addTellerQueue(mutiLine);
+	}
+
+	//Create an empty Event Queue
+	EventQueue eqCommon = EventQueue();
+	EventQueue eqMuti = EventQueue();
+
 	//create user specified number of customers
 	for (int i = 0; i < customerNum; i++) {
 		float custArrivalTime = simulateTime * rand() / float(RAND_MAX);
 		Customer* cust = new Customer(custArrivalTime);
-		CustomerArrival* ca1= new CustomerArrival(custArrivalTime, cust, commonLineVec);
-		eq.insert(ca1);
+		//Create customer arrival event and insert into eventqueue
+		CustomerArrival* caCommon= new CustomerArrival(custArrivalTime, cust, commonLineVec);
+		eqCommon.insert(caCommon);
+		CustomerArrival* caMuti = new CustomerArrival(custArrivalTime, cust, mutiLineVec);
+		eqMuti.insert(caMuti);
 	}
-	//vector for tellers
-	std::vector<Teller*> tellerVec = std::vector<Teller*>();
-	//Initialize tellers
+
+	//create user specified number of tellers
 	for (int i = 0; i < tellerNum; i++){
-		Teller* teller = new Teller(i);
-		tellerVec.push_back(teller);
-		std::cout << "Teller Idle Time: " <<teller->getIdleTime() << std::endl;
+		Teller* t = new Teller(i);
+		//create Tellerevent and insert into both eventQueue
+
 	}
 
-	//starts the simulation
-	while (!eq.isEmpty()) {
-		for (int i = 0; i < tellerNum; i++){
-			if(tellerVec[i]->getState()==INWORK){
-				if(commonLineVec->getNextCustomer(tellerVec[i]) == nullptr){
-					tellerVec[i]->setState(REST);
-					tellerVec[i]->getIdleTime();//goes into the event time
-					//Create the teller Event to come back to work after idleTime
-				}
-				else {
-					// create the customer complete event after random service time
-
-				}
-			}
-		}
-		eq.getHead()->data->action();
-		eq.deleteHead();
+	//starts the simulation for common line
+	while (!eqCommon.isEmpty()) {
+		eqCommon.getHead()->data->action();
+		eqCommon.deleteHead();
 	}
-	std::cout << "Number of customers in common line is " << commonLine->customerNum() << std::endl;
+
+	//to-do clear all the arrival time for customers
 
 
-//	for (int i = 0; i < customerNum; i++) {
-//		commonLineVec->removeCustomer();
-//	}
-	std::cout << "hello" << std::endl;
-	std::cout << "Customer in common line is " << commonLine->customerNum() << std::endl;
+	//run simulation again on muti lines
 	return EXIT_SUCCESS;
 }
+
 
