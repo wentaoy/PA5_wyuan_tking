@@ -68,3 +68,7 @@ int TellerQueue::customerNum() {
 	}
 	return count;
 }
+
+Customer* TellerQueue::getFirstCust(){
+	return head->data;
+}

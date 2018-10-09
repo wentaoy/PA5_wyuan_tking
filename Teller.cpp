@@ -36,3 +36,11 @@ void Teller::setIdleTime(int aIdleTime){
 void Teller::setState(bool astate){
 	state = astate;
 }
+
+int Teller::getid(){
+	return id;
+}
+
+void Teller::setid(int aid){
+	id = aid;
+}

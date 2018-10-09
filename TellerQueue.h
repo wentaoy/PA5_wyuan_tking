@@ -24,6 +24,7 @@ public:
 	virtual ~TellerQueue();
 	void displayCusTime();
 	int customerNum();
+	Customer* getFirstCust();
 private:
 	CustomerNode *head, *tail;
 };

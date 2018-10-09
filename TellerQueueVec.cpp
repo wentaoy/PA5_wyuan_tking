@@ -29,5 +29,27 @@ int TellerQueueVec::getQueueNum(){
 
 //add customer into the vector
 Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
-	return nullptr;
+	//if there's only one line
+	if(lines.size() == 1){
+		//return the pointer to the cust first in the only line
+		return lines[0]->getFirstCust();
+	}else{
+		//loop through the rest starting with line corresponding to teller
+		int numchecked = 1;
+		int location = ateller->getid() - 1;
+		while(numchecked < lines.size()){
+			if(!lines[location]->isEmpty()){
+				return lines[location]->getFirstCust();
+			}else{
+				numchecked++;
+			}
+			if(location + 1 < lines.size()){
+				location++;
+			}else{
+				location = 0;
+			}
+		}
+		//if they are all empty return a null pointer
+		return nullptr;
+	}
 }
