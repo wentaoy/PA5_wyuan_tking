@@ -10,7 +10,11 @@
 
 #include "Event.h"
 #include "Teller.h"
-
+#include "TellerQueueVec.h"
+#include "Customer.h"
+#include "EventQueue.h"
+#include "CustomerComplete.h"
+#include <stdlib.h>
 class TellerEvent: public Event {
 public:
 	TellerEvent();
@@ -18,6 +22,9 @@ public:
 	void action();
 private:
 	Teller* teller;
+	TellerQueueVec* tellerLines;
+	EventQueue* eventQueue;
+	float arvSerTime;
 };
 
 #endif /* TELLEREVENT_H_ */

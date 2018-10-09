@@ -9,6 +9,9 @@
 #define CUSTOMERCOMPLETE_H_
 
 #include "CustomerEvent.h"
+#include "TellerQueue.h"
+#include "TellerEvent.h"
+#include "EventQueue.h"
 
 class CustomerComplete: public CustomerEvent {
 public:
@@ -18,6 +21,9 @@ public:
 	virtual void action();
 private:
 	Teller* teller;
+	TellerQueue* completedCus;
+	EventQueue* eventQueue;
+	float arvSerTime;
 };
 
 #endif /* CUSTOMERCOMPLETE_H_ */

@@ -6,6 +6,7 @@
  */
 #include <iostream>
 #include "CustomerEvent.h"
+#include "TellerEvent.h"
 
 CustomerEvent::CustomerEvent() :
 		Event(), customer(new Customer(1)), tellerLines(new TellerQueueVec()) {
