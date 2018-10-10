@@ -18,6 +18,7 @@
 class TellerEvent: public Event {
 public:
 	TellerEvent();
+	TellerEvent(float , Teller*, TellerQueueVec*, EventQueue*, float, TellerQueue*);
 	virtual ~TellerEvent();
 	void action();
 private:
@@ -25,6 +26,7 @@ private:
 	TellerQueueVec* tellerLines;
 	EventQueue* eventQueue;
 	float arvSerTime;
+	TellerQueue* completedCus;
 };
 
 #endif /* TELLEREVENT_H_ */

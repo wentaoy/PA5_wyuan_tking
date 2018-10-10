@@ -16,7 +16,7 @@
 class CustomerComplete: public CustomerEvent {
 public:
 	CustomerComplete();
-	CustomerComplete(Teller* ateller);
+	CustomerComplete(float time,Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, TellerQueue* atellerQ, EventQueue* aeventQ, float aarvSerT);
 	virtual ~CustomerComplete();
 	virtual void action();
 private:

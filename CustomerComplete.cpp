@@ -12,6 +12,10 @@ CustomerComplete::CustomerComplete() :
 		CustomerEvent(), teller(nullptr), completedCus(nullptr), eventQueue(nullptr), arvSerTime(0){
 }
 
+CustomerComplete::CustomerComplete(float time, Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, TellerQueue* atellerQ, EventQueue* aeventQ, float aarvSerT):
+		CustomerEvent(time, aCustomer,aTellLine), teller(ateller), completedCus(atellerQ), eventQueue(aeventQ), arvSerTime(aarvSerT){
+
+}
 // need another Constructor
 CustomerComplete::~CustomerComplete() {
 	// TODO Auto-generated destructor stub
@@ -32,12 +36,12 @@ void CustomerComplete::action() {
 	Customer* nextCus = tellerLines->getNextCustomer(teller);
 	if (nextCus == nullptr) {
 		teller->setState(REST);
-		TellerEvent* tComeback = new TellerEvent(); //need to be changed with eventtime = time + idletime
+		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueue, arvSerTime); //need to be changed with eventtime = time + idletime
 	}
 	// if there is next customer then create new customercomplete event after a random service time
 	else {
 		float randSerTime = 2 * arvSerTime * rand() / float(RAND_MAX);
-		CustomerComplete* nextService = new CustomerComplete(); // need to change constructor
+		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, nextCus, tellerLines, teller, completedCus, eventQueue, arvSerTime); // need to change constructor
 		eventQueue->insert(nextService);
 	}
 }
