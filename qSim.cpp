@@ -74,9 +74,9 @@ int main(int argc, char *argv[]) {
 	std::cout<<"The arrival time of nextCust is: " << nextCust->getArrivalTime()<< std::endl;
 	std::cout<< "Removing first Customer from line 2." << std::endl;
 	testVec->removeCustomer(nextCust);
-	std::cout<< "There are " << num0 << " customers in q0" << std::endl;
-	std::cout<< "There are " << num1 << " customers in q1" << std::endl;
-	std::cout<< "There are " << num2 << " customers in q2" << std::endl;
+	std::cout<< "There are " << q0->customerNum() << " customers in q0" << std::endl;
+	std::cout<< "There are " << q1->customerNum() << " customers in q1" << std::endl;
+	std::cout<< "There are " << q2->customerNum() << " customers in q2" << std::endl;
 
 
 

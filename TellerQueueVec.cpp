@@ -93,8 +93,7 @@ void TellerQueueVec::removeCustomer(Customer* acustomer){
 		for(int i = 0; i < lines.size(); i++){
 			if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
 				lines[i]->remove();
-			}else{
-				std::cout<<"The customer isn't there."<<std::endl;
+				std::cout<<"Removed the customer."<<std::endl;
 			}
 		}
 	}
