@@ -18,6 +18,9 @@ EventQueue::~EventQueue() {
 	// TODO Auto-generated destructor stub
 }
 
+/**inserts an event into the eventQueue in the right place
+ * @param e the event to be inserted
+ */
 void EventQueue::insert(Event* e) {
 	Node *tmp = new Node;
 	tmp->data = e;
@@ -64,7 +67,9 @@ void EventQueue::back(Event* e) {
 		tail = tail->link;
 	}
 }
-
+/** Prints the time
+ *
+ */
 void EventQueue::displayTime() {
 	Node* tmp = new Node;
 	tmp = head;
@@ -73,21 +78,32 @@ void EventQueue::displayTime() {
 		tmp = tmp->link;
 	}
 }
-
+/** Returns the first in the event queue
+ * @returns Node* node in the front of the event queue
+ */
 Node* EventQueue::getHead() {
 	return head;
 }
 
+/**Deletes the node first in the event queue
+ *
+ */
 void EventQueue::deleteHead() {
 	Node *temp = head; // Remember the old head
 	head = head->link; // Second in line becomes new head
 	delete temp; // Delete old head
 }
 
+/** Tells whether the EventQueue is empty
+ * @return bool true for empty false for not empty
+ */
 bool EventQueue::isEmpty(){
 	return head == NULL;
 }
 
+/** Tells how many events are in the eventQueue
+ * @return int num of nodes
+ */
 int EventQueue::eventNum(){
 	Node* p = head;
 	int count = 0;

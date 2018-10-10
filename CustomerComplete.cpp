@@ -17,7 +17,11 @@ CustomerComplete::CustomerComplete() :
 CustomerComplete::~CustomerComplete() {
 	// TODO Auto-generated destructor stub
 }
-
+/** The action for when a customer complete is next on queue
+ * prints the time duration customer was in bank, sets the leave time, adds
+ * to teller queue of completed customer, and determines whether to go on break
+ * or serve a new customer
+ */
 void CustomerComplete::action() {
 	std::cout << "customer stays in bank for"
 			<< time - customer->getArrivalTime() << std::endl;

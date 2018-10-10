@@ -16,7 +16,9 @@ TellerQueue::TellerQueue() :
 TellerQueue::~TellerQueue() {
 	// TODO Auto-generated destructor stub
 }
-
+/**Adds a given customer to the teller queue
+ * @param t a customer to be added
+ */
 void TellerQueue::add(Customer* t) {
 	CustomerNode *tmp = new CustomerNode;
 	tmp->data = t;
@@ -30,7 +32,9 @@ void TellerQueue::add(Customer* t) {
 		tail = tail->link;
 	}
 }
-
+/** removes the first customer off of the teller queue
+ * @return Customer* customer that was removed
+ */
 Customer* TellerQueue::remove() {
 	if (isEmpty()) {
 		std::cout << "Error: Removing an item from an empty queue.\n";
@@ -46,10 +50,16 @@ Customer* TellerQueue::remove() {
 	return result;
 }
 
+/**Tells if the tellr queue has any customers in it
+ * @return bool true for empty, false for not empty
+ */
 bool TellerQueue::isEmpty() {
 	return (tail == NULL);
 }
 
+/**Finds the arrival time of the customer at the front and prints it
+ *
+ */
 void TellerQueue::displayCusTime() {
 	CustomerNode* tmp = new CustomerNode;
 	tmp = head;
@@ -58,7 +68,9 @@ void TellerQueue::displayCusTime() {
 		tmp = tmp->link;
 	}
 }
-
+/**Finds the number of customers in this line
+ * @return int number in line
+ */
 int TellerQueue::customerNum() {
 	CustomerNode* p = head;
 	int count = 0;
@@ -68,7 +80,9 @@ int TellerQueue::customerNum() {
 	}
 	return count;
 }
-
+/**Gets the customer who is in the front of the line
+ * @return Customer* customer in front
+ */
 Customer* TellerQueue::getFirstCust(){
 	return head->data;
 }

@@ -17,6 +17,10 @@ TellerEvent::~TellerEvent() {
 	// TODO Auto-generated destructor stub
 }
 
+/** The action for when a teller event is next on queue
+ * changes state for teller, if there isn't a customer, create teller come back
+ * event, if there is a customer create customer complete event
+ */
 void TellerEvent::action() {
 	//set the teller'state to INWORK
 	teller->setState(INWORK);

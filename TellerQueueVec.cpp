@@ -16,19 +16,30 @@ TellerQueueVec::~TellerQueueVec() {
 	// TODO Auto-generated destructor stub
 }
 
+/** Adds the given teller queue to the Vector
+ * @param aline tellerQ to be added
+ */
 void TellerQueueVec::addTellerQueue(TellerQueue* aline){
 	lines.push_back(aline);
 }
 
+/** Returns the teller queue with the given id
+ * @return TellerQueue* the desired teller queue
+ */
 TellerQueue* TellerQueueVec::getTellerQueue(int id){
 	return lines[id];
 }
-
+/** Finds the number of queues in the vector
+ * @return int number of Queues
+ */
 int TellerQueueVec::getQueueNum(){
 	return lines.size();
 }
 
-//add customer into the vector
+/**Finds the customer that a given teller should serve next
+ * @param ateller the Teller that is asking for next Customer
+ * @return Customer* returns the next customer that the teller should serve
+ */
 Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
 	//if there's only one line
 	if(lines.size() == 1){
@@ -54,6 +65,10 @@ Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
 		return nullptr;
 	}
 }
+
+/**adds a customer to the shortest tellerqueue in the the vector
+ * @param acustomer the customer to be added
+ */
 void TellerQueueVec::addCustomer(Customer* acustomer){
 	if(lines.size() == 1){
 		lines[0]->add(acustomer);
@@ -68,6 +83,9 @@ void TellerQueueVec::addCustomer(Customer* acustomer){
 	}
 }
 
+/**Removes a given customer from the front of one of the teller queues
+ * @param acustomer the customer to be removes
+ */
 void TellerQueueVec::removeCustomer(Customer* acustomer){
 	if(lines.size() == 1){
 		lines[0]->remove();
@@ -76,7 +94,7 @@ void TellerQueueVec::removeCustomer(Customer* acustomer){
 			if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
 				lines[i]->remove();
 			}else{
-			std::cout<<"The customer isn't there."<<std::endl;
+				std::cout<<"The customer isn't there."<<std::endl;
 			}
 		}
 	}

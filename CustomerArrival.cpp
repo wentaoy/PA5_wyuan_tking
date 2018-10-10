@@ -20,7 +20,10 @@ CustomerArrival::CustomerArrival(float time, Customer* aCustomer,
 CustomerArrival::~CustomerArrival() {
 	// TODO Auto-generated destructor stub
 }
-
+/** The action for when a customer arrival is next on queue
+ * adds a customer to the tellerQueueVec
+ * prints the arrival time
+ */
 void CustomerArrival::action(){
 	tellerLines->addCustomer(customer);
 	std::cout << "Customer Arrives at " << customer->getArrivalTime() <<" added to tellerLine." << std::endl;

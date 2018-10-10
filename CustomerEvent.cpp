@@ -18,6 +18,10 @@ CustomerEvent::CustomerEvent(float time, Customer* aCustomer, TellerQueueVec* aT
 CustomerEvent::~CustomerEvent() {
 	// do not delete the customer object
 }
+
+/**Prints out error message if attempts to call action on this object
+ *
+ */
 void CustomerEvent::action(){
 	std::cout << "error: which CustomerEvent" << std::endl;
 }

@@ -30,6 +30,58 @@ int main(int argc, char *argv[]) {
 	}
 	srand(seed);
 
+	//for testing
+	TellerQueueVec* testVec = new TellerQueueVec();
+	TellerQueue* q0 = new TellerQueue();
+	TellerQueue* q1 = new TellerQueue();
+	TellerQueue* q2 = new TellerQueue();
+	Customer* c0 = new Customer(1);
+	Customer* c1 = new Customer(2);
+	Customer* c2 = new Customer(3);
+	Customer* c3 = new Customer(4);
+	Customer* c4 = new Customer(5);
+	Customer* c5 = new Customer(6);
+
+	Teller* t0 = new Teller(0);
+	Teller* t1 = new Teller(1);
+	//adding teller queues
+	testVec->addTellerQueue(q0);
+	testVec->addTellerQueue(q1);
+	testVec->addTellerQueue(q2);
+
+	//adding customers to teller q vec (go to shortest line
+	testVec->addCustomer(c0);
+	testVec->addCustomer(c1);
+	testVec->addCustomer(c2);
+	testVec->addCustomer(c3);
+	testVec->addCustomer(c4);
+	testVec->addCustomer(c5);
+
+	int num0 = q0->customerNum();
+	int num1 = q1->customerNum();
+	int num2 = q2->customerNum();
+
+	std::cout<< "There are " << num0 << " customers in q0" << std::endl;
+	std::cout<< "There are " << num1 << " customers in q1" << std::endl;
+	std::cout<< "There are " << num2 << " customers in q2" << std::endl;
+	std::cout<< "The next customer in first line has: " << q0->getFirstCust()->getArrivalTime() << std::endl;
+	std::cout<< "The next customer in second line has: " << q1->getFirstCust()->getArrivalTime() << std::endl;
+
+	Customer* nextCust = testVec->getNextCustomer(t0);
+	std::cout<< "The next customer teller 0 is to serve has this arrival time: " << nextCust->getArrivalTime() << std::endl;
+	nextCust = testVec->getNextCustomer(t1);
+	std::cout<< "The next customer teller 1 is to serve has this arrival time: " << nextCust->getArrivalTime() << std::endl;
+	std::cout<<"The arrival time of nextCust is: " << nextCust->getArrivalTime()<< std::endl;
+	std::cout<< "Removing first Customer from line 2." << std::endl;
+	testVec->removeCustomer(nextCust);
+	std::cout<< "There are " << num0 << " customers in q0" << std::endl;
+	std::cout<< "There are " << num1 << " customers in q1" << std::endl;
+	std::cout<< "There are " << num2 << " customers in q2" << std::endl;
+
+
+
+
+
 	//Initialize TellQueueVec and the tellqueue for common line
 	TellerQueueVec* commonLineVec = new TellerQueueVec();
 	TellerQueue* commonLine = new TellerQueue();
