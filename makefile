@@ -6,7 +6,7 @@
 
 CXXFLAGS = -g -Wall -fmessage-length=0
 
-OBJS =	qSim.o
+OBJS =	qSim.o TellerQueue.o Teller.o Customer.o Event.o EventQueue.o CustomerEvent.o CustomerArrival.o CustomerComplete.o TellerQueueVec.o TellerEvent.o
 
 LIBS =
 

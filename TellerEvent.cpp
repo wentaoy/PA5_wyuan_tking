@@ -6,6 +6,7 @@
  */
 
 #include "TellerEvent.h"
+#include <iostream>
 
 TellerEvent::TellerEvent() :
 		Event(), teller(nullptr), tellerLines(nullptr), eventQueue(nullptr), arvSerTime(0), completedCus(nullptr){
@@ -29,18 +30,23 @@ void TellerEvent::action() {
 	//set the teller'state to INWORK
 	teller->setState(INWORK);
 	//ask for next consumer
-	Customer* nextCus = tellerLines->getNextCustomer(teller);
+	std::cout<<"in TellerEvent action" << std::endl;
 	//if no consumer set state to REST
-	if (nextCus == nullptr) {
+	if (tellerLines->getNextCustomer(teller) == nullptr) {
 		teller->setState(REST);
 		// create the teller comeback event
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to change constructor
+		// insert the teller event
+		eventQueue->insert(tComeback);
+		std::cout<<"in TellerEvent action2" << std::endl;
 	}
 	//if there is next consumer create consumercomplete event with after random service time
 	else{
 		float randSerTime =  2*arvSerTime*rand()/float(RAND_MAX);
-		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, nextCus, tellerLines, teller, completedCus, eventQueue, arvSerTime); // need to change constructor
+		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, tellerLines->getNextCustomer(teller), tellerLines, teller, completedCus, eventQueue, arvSerTime); // need to change constructor
+		tellerLines->removeCustomer(tellerLines->getNextCustomer(teller));
 		eventQueue->insert(nextService);
+		std::cout<<"in TellerEvent action3" << std::endl;
 	}
 }
 

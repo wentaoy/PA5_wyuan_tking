@@ -33,7 +33,6 @@ void CustomerComplete::action() {
 	std::cout << "customer stays in bank for"
 			<< time - customer->getArrivalTime() << std::endl;
 	customer->setLeaveTime(time);
-	tellerLines->removeCustomer(customer);
 	// store customer into the tellerqueue of completed customers
 	completedCus->add(customer);
 	// teller gets next customer if nullptr then set teller to rest and create new tellerevent after idle time
@@ -43,6 +42,7 @@ void CustomerComplete::action() {
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(),
 				teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to be changed with eventtime = time + idletime
 		eventQueue->insert(tComeback);
+		std::cout<<"no one in line i am on break"<< std::endl;
 	}
 	// if there is next customer then create new customercomplete event after a random service time
 	else {
@@ -50,6 +50,8 @@ void CustomerComplete::action() {
 		CustomerComplete* nextService = new CustomerComplete(time + randSerTime,
 				nextCus, tellerLines, teller, completedCus, eventQueue,
 				arvSerTime); // need to change constructor
+		std::cout << "Damn I still need to work" << std::endl;
+		tellerLines->removeCustomer(nextCus);
 		eventQueue->insert(nextService);
 	}
 }

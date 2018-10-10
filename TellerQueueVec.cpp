@@ -44,7 +44,8 @@ Customer* TellerQueueVec::getNextCustomer(Teller* ateller){
 	//if there's only one line
 	if(lines.size() == 1){
 		//return the pointer to the cust first in the only line
-		return lines[0]->getFirstCust();
+		Customer* temp = lines[0]->getFirstCust();
+		return temp;
 	}else{
 		//loop through the rest starting with line corresponding to teller
 		int unsigned numchecked = 1;

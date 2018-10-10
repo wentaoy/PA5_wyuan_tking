@@ -17,6 +17,7 @@
 #include "CustomerEvent.h"
 #include "CustomerArrival.h"
 #include "TellerQueueVec.h"
+#include "TellerEvent.h"
 
 int main(int argc, char *argv[]) {
 	//reading command line
@@ -30,7 +31,8 @@ int main(int argc, char *argv[]) {
 	}
 	srand(seed);
 
-	//for testing
+	/**********************Start of testing for add, remove and getnextcos********************
+
 	TellerQueueVec* testVec = new TellerQueueVec();
 	TellerQueue* q0 = new TellerQueue();
 	TellerQueue* q1 = new TellerQueue();
@@ -78,9 +80,7 @@ int main(int argc, char *argv[]) {
 	std::cout<< "There are " << q1->customerNum() << " customers in q1" << std::endl;
 	std::cout<< "There are " << q2->customerNum() << " customers in q2" << std::endl;
 
-
-
-
+	*************************************************************************************************/
 
 	//Initialize TellQueueVec and the tellqueue for common line
 	TellerQueueVec* commonLineVec = new TellerQueueVec();
@@ -93,36 +93,49 @@ int main(int argc, char *argv[]) {
 		TellerQueue* mutiLine = new TellerQueue();
 		mutiLineVec->addTellerQueue(mutiLine);
 	}
-
 	//Create an empty Event Queue
-	EventQueue eqCommon = EventQueue();
-	EventQueue eqMuti = EventQueue();
+	EventQueue* eqCommon = new EventQueue();
+	EventQueue* eqMuti = new EventQueue();
 
+	//Create the completed Customer Queue
+	TellerQueue* completedCusCommon = new TellerQueue();
+	TellerQueue* completedCusMuti = new TellerQueue();
 	//create user specified number of customers
 	for (int i = 0; i < customerNum; i++) {
 		float custArrivalTime = simulateTime * rand() / float(RAND_MAX);
 		Customer* cust = new Customer(custArrivalTime);
 		//Create customer arrival event and insert into eventqueue
 		CustomerArrival* caCommon= new CustomerArrival(custArrivalTime, cust, commonLineVec);
-		eqCommon.insert(caCommon);
-		CustomerArrival* caMuti = new CustomerArrival(custArrivalTime, cust, mutiLineVec);
-		eqMuti.insert(caMuti);
+		eqCommon->insert(caCommon);
+		//CustomerArrival* caMuti = new CustomerArrival(custArrivalTime, cust, mutiLineVec);
+		//eqMuti->insert(caMuti);
 	}
-
 	//create user specified number of tellers
 	for (int i = 0; i < tellerNum; i++){
+		//create the new teller
 		Teller* t = new Teller(i);
+		//create the first teller
+		TellerEvent* teCommon = new TellerEvent(0, t, commonLineVec, eqCommon, arvSerTime, completedCusCommon);
 		//create Tellerevent and insert into both eventQueue
-
+		eqCommon->insert(teCommon);
+		//TellerEvent* teMuti = new TellerEvent(0, t, mutiLineVec, eqMuti, arvSerTime, completedCusMuti);
+		//eqMuti->insert(teMuti);
 	}
 
 	//starts the simulation for common line
-	while (!eqCommon.isEmpty()) {
-		eqCommon.getHead()->data->action();
-		eqCommon.deleteHead();
+	float worldTime = 0;
+	while (!eqCommon->isEmpty() && worldTime < simulateTime) {
+		eqCommon->getHead()->data->action();
+		std::cout<< "Ends" << std::endl;
+		worldTime = eqCommon->getHead()->data->getTime();
+		eqCommon->deleteHead();
 	}
-
+	std::cout << worldTime <<std::endl;
+	//collect statistics
 	//to-do clear all the arrival time for customers
+
+	//to-do start mutiline simulation
+	//collect statistics
 
 
 	//run simulation again on muti lines

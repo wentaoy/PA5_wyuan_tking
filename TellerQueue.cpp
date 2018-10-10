@@ -10,7 +10,7 @@
 #include "TellerQueue.h"
 
 TellerQueue::TellerQueue() :
-		head(NULL), tail(NULL) {
+		head(nullptr), tail(nullptr) {
 }
 
 TellerQueue::~TellerQueue() {
@@ -22,9 +22,9 @@ TellerQueue::~TellerQueue() {
 void TellerQueue::add(Customer* t) {
 	CustomerNode *tmp = new CustomerNode;
 	tmp->data = t;
-	tmp->link = NULL;
+	tmp->link = nullptr;
 
-	if (head == NULL) {
+	if (head == nullptr) {
 		head = tmp;
 		tail = tmp;
 	} else {
@@ -44,8 +44,8 @@ Customer* TellerQueue::remove() {
 	CustomerNode *discard;
 	discard = head;
 	head = head->link;
-	if (head == NULL) //if you removed the last node
-		tail = NULL;
+	if (head == nullptr) //if you removed the last node
+		tail = nullptr;
 	delete discard;
 	return result;
 }
@@ -54,7 +54,7 @@ Customer* TellerQueue::remove() {
  * @return bool true for empty, false for not empty
  */
 bool TellerQueue::isEmpty() {
-	return (tail == NULL);
+	return (tail == nullptr);
 }
 
 /**Finds the arrival time of the customer at the front and prints it
@@ -63,7 +63,7 @@ bool TellerQueue::isEmpty() {
 void TellerQueue::displayCusTime() {
 	CustomerNode* tmp = new CustomerNode;
 	tmp = head;
-	while (tmp != NULL) {
+	while (tmp != nullptr) {
 		std::cout << tmp->data->getArrivalTime() << std::endl;
 		tmp = tmp->link;
 	}
@@ -74,7 +74,7 @@ void TellerQueue::displayCusTime() {
 int TellerQueue::customerNum() {
 	CustomerNode* p = head;
 	int count = 0;
-	while (p != NULL) {
+	while (p != nullptr) {
 		++count;
 		p = p->link;
 	}
@@ -83,6 +83,10 @@ int TellerQueue::customerNum() {
 /**Gets the customer who is in the front of the line
  * @return Customer* customer in front
  */
-Customer* TellerQueue::getFirstCust(){
-	return head->data;
+Customer* TellerQueue::getFirstCust() {
+	if (head == nullptr) {
+		return nullptr;
+	} else {
+		return head->data;
+	}
 }
