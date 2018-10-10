@@ -13,7 +13,6 @@ CustomerComplete::CustomerComplete() :
 }
 
 // need another Constructor
-
 CustomerComplete::~CustomerComplete() {
 	// TODO Auto-generated destructor stub
 }
