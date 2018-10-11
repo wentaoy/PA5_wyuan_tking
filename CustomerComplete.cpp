@@ -39,6 +39,7 @@ void CustomerComplete::action() {
 	Customer* nextCus = tellerLines->getNextCustomer(teller);
 	if (nextCus == nullptr) {
 		teller->setState(REST);
+		teller->addToTotIdleTime(teller->getIdleTime());
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(),
 				teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to be changed with eventtime = time + idletime
 		eventQueue->insert(tComeback);
@@ -49,7 +50,9 @@ void CustomerComplete::action() {
 		float randSerTime = 2 * arvSerTime * rand() / float(RAND_MAX);
 		CustomerComplete* nextService = new CustomerComplete(time + randSerTime,
 				nextCus, tellerLines, teller, completedCus, eventQueue,
-				arvSerTime); // need to change constructor
+				arvSerTime);
+		//keeping track of when customer called
+		nextCus->setCalledTime(time);
 		std::cout << "Damn I still need to work" << std::endl;
 		tellerLines->removeCustomer(nextCus);
 		eventQueue->insert(nextService);

@@ -34,6 +34,7 @@ void TellerEvent::action() {
 	//if no consumer set state to REST
 	if (tellerLines->getNextCustomer(teller) == nullptr) {
 		teller->setState(REST);
+		teller->addToTotIdleTime(teller->getIdleTime());
 		// create the teller comeback event
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to change constructor
 		// insert the teller event
@@ -44,6 +45,8 @@ void TellerEvent::action() {
 	else{
 		float randSerTime =  2*arvSerTime*rand()/float(RAND_MAX);
 		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, tellerLines->getNextCustomer(teller), tellerLines, teller, completedCus, eventQueue, arvSerTime); // need to change constructor
+		//keeping track of when customer called
+		tellerLines->getNextCustomer(teller)->setCalledTime(time);
 		tellerLines->removeCustomer(tellerLines->getNextCustomer(teller));
 		eventQueue->insert(nextService);
 		std::cout<<"in TellerEvent action3" << std::endl;

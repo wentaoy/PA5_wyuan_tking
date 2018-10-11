@@ -9,22 +9,22 @@
 
 
 Teller::Teller() :
-		idleTime(rand() % IDLEMAX), id(0),state(REST) {
+		idleTime(rand() * IDLEMAX / float(RAND_MAX)), id(0),state(REST), totIdleTime(0) {
 }
 
 
 Teller::Teller(int aid) :
-		idleTime(rand() % IDLEMAX), id(aid),state(REST) {
+		idleTime(rand() * IDLEMAX / float(RAND_MAX)), id(aid),state(REST),totIdleTime(0) {
 }
 
-Teller::Teller(int aidleTime, int aid, bool astate) :
-		idleTime(aidleTime), id(aid), state(astate) {
+Teller::Teller(float aidleTime, int aid, bool astate) :
+		idleTime(aidleTime), id(aid), state(astate), totIdleTime(0){
 }
 
 /**Returns the idle time for this teller
  *
  */
-int Teller::getIdleTime() {
+float Teller::getIdleTime() {
 	return idleTime;
 }
 
@@ -38,7 +38,7 @@ bool Teller::getState() {
 /**Changes the idle time for this teller
  *
  */
-void Teller::setIdleTime(int aIdleTime){
+void Teller::setIdleTime(float aIdleTime){
 	idleTime = aIdleTime;
 }
 /**Changes the state for this teller
@@ -59,4 +59,18 @@ int Teller::getid(){
  */
 void Teller::setid(int aid){
 	id = aid;
+}
+
+/**Returns the total idle time for this teller
+ *
+ */
+float Teller::getTotIdleTime(){
+	return totIdleTime;
+}
+
+/**Changes the total idle time for this teller
+ *
+ */
+void Teller::addToTotIdleTime(float time){
+	totIdleTime = totIdleTime + time;;
 }

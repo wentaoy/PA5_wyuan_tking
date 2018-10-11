@@ -8,7 +8,7 @@
 #ifndef TELLER_H_
 #define TELLER_H_
 
-const int IDLEMAX = 600;
+const float IDLEMAX = 600;
 const bool INWORK = 1;
 const bool REST = 0;
 
@@ -16,18 +16,21 @@ class Teller{
 public:
 	Teller();
 	Teller(int);
-	Teller(int, int, bool);
-	int getIdleTime();
+	Teller(float, int, bool);
+	float getIdleTime();
 	bool getState();
 	int getid();
 	void setid(int aid);
-	void setIdleTime(int);
+	void setIdleTime(float);
 	void setState(bool);
+	float getTotIdleTime();
+	void addToTotIdleTime(float);
 
 private:
-	int idleTime;
+	float idleTime;
 	int id;
 	bool state; //indicates whether a teller is in rest
+	float totIdleTime;
 };
 
 

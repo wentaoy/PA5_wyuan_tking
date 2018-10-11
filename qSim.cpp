@@ -18,6 +18,7 @@
 #include "CustomerArrival.h"
 #include "TellerQueueVec.h"
 #include "TellerEvent.h"
+#include <vector>
 
 int main(int argc, char *argv[]) {
 	//reading command line
@@ -93,6 +94,9 @@ int main(int argc, char *argv[]) {
 		TellerQueue* mutiLine = new TellerQueue();
 		mutiLineVec->addTellerQueue(mutiLine);
 	}
+	//Create an empty Vector of Tellers
+	std::vector<Teller*> tellerVecCommon;
+	//TODO add tellers to vector then calculate stats
 	//Create an empty Event Queue
 	EventQueue* eqCommon = new EventQueue();
 	EventQueue* eqMuti = new EventQueue();
@@ -132,6 +136,24 @@ int main(int argc, char *argv[]) {
 	}
 	std::cout << worldTime <<std::endl;
 	//collect statistics
+	//number of customers served
+	int numCustSerCommon = completedCusCommon->customerNum();
+	//Sum of times customers were in bank
+	float totCustSerTimeCommon = 0;
+	float maxWaitTimeCommon = 0;
+	float sumOfSquaresCommon = 0;
+	for(int i = 0; i < completedCusCommon->customerNum(); i++){
+		//if this wait time is greater than all before set it as max
+		if((completedCusCommon->getFirstCust()->getCalledTime() - completedCusCommon->getFirstCust()->getCalledTime()) > maxWaitTimeCommon){
+			maxWaitTimeCommon = completedCusCommon->getFirstCust()->getCalledTime() - completedCusCommon->getFirstCust()->getCalledTime();
+		}
+		//get the first time inside of the Q
+		totCustSerTimeCommon = totCustSerTimeCommon + (completedCusCommon->getFirstCust()->getLeaveTime() -
+				completedCusCommon->getFirstCust()->getArrivalTime());
+		//remove first person
+		completedCusCommon->remove();
+	}
+	float avrTimeInBankCommon = totCustSerTimeCommon / numCustSerCommon;
 	//to-do clear all the arrival time for customers
 
 	//to-do start mutiline simulation

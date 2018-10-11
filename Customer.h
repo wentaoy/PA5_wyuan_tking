@@ -16,10 +16,13 @@ public:
 	void setArrivalTime(float);
 	float getLeaveTime();
 	void setLeaveTime(float time);
+	float getCalledTime();
+	void setCalledTime(float time);
 
 private:
 	float arrivalTime;
 	float leaveTime;
+	float calledTime;
 };
 
 #endif /* CUSTOMER_H_ */

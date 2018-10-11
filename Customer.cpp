@@ -6,10 +6,10 @@
  */
 #include "Customer.h"
 
-Customer::Customer(){arrivalTime = 0; leaveTime = 0;}
+Customer::Customer(){arrivalTime = 0; leaveTime = 0; calledTime = 0;}
 
-Customer::Customer(float arrTime): arrivalTime (arrTime), leaveTime(0){}
-
+Customer::Customer(float arrTime): arrivalTime (arrTime), leaveTime(0), calledTime(0){}
+//TODO keep track of Called Time
 /**Returns the arrival time of the customer
  * @return float arrival time
  */
@@ -36,4 +36,18 @@ float Customer::getLeaveTime(){
  */
 void Customer::setLeaveTime(float time){
 	leaveTime = time;
+}
+
+/**Returns the called time of the customer
+ * @return float called time
+ */
+float Customer::getCalledTime(){
+	return calledTime;
+}
+
+/**Changes called time to given float value
+ * @param called float
+ */
+void Customer::setCalledTime(float time){
+	calledTime = time;
 }
