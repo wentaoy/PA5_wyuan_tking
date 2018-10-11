@@ -102,8 +102,8 @@ int main(int argc, char *argv[]) {
 	EventQueue* eqMuti = new EventQueue();
 
 	//Create the completed Customer Queue
-	TellerQueue* completedCusCommon = new TellerQueue();
-	TellerQueue* completedCusMuti = new TellerQueue();
+	std::vector<Customer*>* completedCusCommon = new std::vector<Customer*>();
+	std::vector<Customer*>* completedCusMuti = new std::vector<Customer*>();
 	//create user specified number of customers
 	for (int i = 0; i < customerNum; i++) {
 		float custArrivalTime = simulateTime * rand() / float(RAND_MAX);
@@ -137,23 +137,31 @@ int main(int argc, char *argv[]) {
 	std::cout << worldTime <<std::endl;
 	//collect statistics
 	//number of customers served
-	int numCustSerCommon = completedCusCommon->customerNum();
+	int numCustSerCommon = completedCusCommon->size();
 	//Sum of times customers were in bank
 	float totCustSerTimeCommon = 0;
 	float maxWaitTimeCommon = 0;
 	float sumOfSquaresCommon = 0;
-	for(int i = 0; i < completedCusCommon->customerNum(); i++){
+	for(int i = 0; i < completedCusCommon->size(); i++){
 		//if this wait time is greater than all before set it as max
-		if((completedCusCommon->getFirstCust()->getCalledTime() - completedCusCommon->getFirstCust()->getCalledTime()) > maxWaitTimeCommon){
-			maxWaitTimeCommon = completedCusCommon->getFirstCust()->getCalledTime() - completedCusCommon->getFirstCust()->getCalledTime();
+		if(((*completedCusCommon)[i]->getCalledTime() - (*completedCusCommon)[i]->getArrivalTime()) > maxWaitTimeCommon){
+			maxWaitTimeCommon = (*completedCusCommon)[i]->getCalledTime() - (*completedCusCommon)[i]->getArrivalTime();
 		}
 		//get the first time inside of the Q
-		totCustSerTimeCommon = totCustSerTimeCommon + (completedCusCommon->getFirstCust()->getLeaveTime() -
-				completedCusCommon->getFirstCust()->getArrivalTime());
-		//remove first person
-		completedCusCommon->remove();
+		totCustSerTimeCommon = totCustSerTimeCommon + ((*completedCusCommon)[i]->getLeaveTime() -
+				(*completedCusCommon)[i]->getArrivalTime());
 	}
 	float avrTimeInBankCommon = totCustSerTimeCommon / numCustSerCommon;
+	for(int i = 0; i < completedCusCommon->size(); i++){
+		sumOfSquaresCommon = sumOfSquaresCommon + pow(((*completedCusCommon)[i]->getLeaveTime() - (*completedCusCommon)[i]->getArrivalTime()) - avrTimeInBankCommon, 2);
+	}
+	float stdDevCommon = sqrt(sumOfSquaresCommon/ completedCusCommon->size());
+	std::cout<<"The number of customers for common is: "<< numCustSerCommon << std::endl;
+	std::cout<<"The total customer service time for common is: "<< totCustSerTimeCommon << std::endl;
+	std::cout<<"The max wait time for common is: "<< maxWaitTimeCommon << std::endl;
+	std::cout<<"The average time customers spent in bank for common is: "<< avrTimeInBankCommon << std::endl;
+	std::cout<<"The standard deviation of time spent in bank for common is: "<< stdDevCommon << std::endl;
+
 	//to-do clear all the arrival time for customers
 
 	//to-do start mutiline simulation

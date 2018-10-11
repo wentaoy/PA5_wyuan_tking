@@ -16,12 +16,12 @@
 class CustomerComplete: public CustomerEvent {
 public:
 	CustomerComplete();
-	CustomerComplete(float time,Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, TellerQueue* atellerQ, EventQueue* aeventQ, float aarvSerT);
+	CustomerComplete(float time,Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, std::vector<Customer*>* acusComplete, EventQueue* aeventQ, float aarvSerT);
 	virtual ~CustomerComplete();
 	virtual void action();
 private:
 	Teller* teller;
-	TellerQueue* completedCus;
+	std::vector<Customer*>* completedCus;
 	EventQueue* eventQueue;
 	float arvSerTime;
 };

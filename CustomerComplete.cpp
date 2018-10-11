@@ -14,10 +14,10 @@ CustomerComplete::CustomerComplete() :
 }
 
 CustomerComplete::CustomerComplete(float time, Customer* aCustomer,
-		TellerQueueVec* aTellLine, Teller* ateller, TellerQueue* atellerQ,
+		TellerQueueVec* aTellLine, Teller* ateller, std::vector<Customer*>* acusComplete,
 		EventQueue* aeventQ, float aarvSerT) :
 		CustomerEvent(time, aCustomer, aTellLine), teller(ateller), completedCus(
-				atellerQ), eventQueue(aeventQ), arvSerTime(aarvSerT) {
+				acusComplete), eventQueue(aeventQ), arvSerTime(aarvSerT) {
 
 }
 // need another Constructor
@@ -34,7 +34,7 @@ void CustomerComplete::action() {
 			<< time - customer->getArrivalTime() << std::endl;
 	customer->setLeaveTime(time);
 	// store customer into the tellerqueue of completed customers
-	completedCus->add(customer);
+	completedCus->push_back(customer);
 	// teller gets next customer if nullptr then set teller to rest and create new tellerevent after idle time
 	Customer* nextCus = tellerLines->getNextCustomer(teller);
 	if (nextCus == nullptr) {

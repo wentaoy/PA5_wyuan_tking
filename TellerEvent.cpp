@@ -13,7 +13,7 @@ TellerEvent::TellerEvent() :
 	// TODO Auto-generated constructor stub
 }
 
-TellerEvent::TellerEvent(float time, Teller* ateller, TellerQueueVec* atellerQVec, EventQueue* aeventQ, float aarvSerT, TellerQueue* acustComplete):
+TellerEvent::TellerEvent(float time, Teller* ateller, TellerQueueVec* atellerQVec, EventQueue* aeventQ, float aarvSerT, std::vector<Customer*>* acustComplete):
 		Event(time), teller(ateller), tellerLines(atellerQVec), eventQueue(aeventQ), arvSerTime(aarvSerT), completedCus(acustComplete){
 
 }
