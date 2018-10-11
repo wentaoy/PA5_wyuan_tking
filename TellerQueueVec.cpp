@@ -13,6 +13,9 @@ TellerQueueVec::TellerQueueVec() {
 }
 
 TellerQueueVec::~TellerQueueVec() {
+	for(int i = 0; i < this->getQueueNum(); i++){
+		lines[i]->~TellerQueue();
+	}
 	// TODO Auto-generated destructor stub
 }
 
@@ -92,9 +95,11 @@ void TellerQueueVec::removeCustomer(Customer* acustomer){
 		lines[0]->remove();
 	}else{
 		for(int i = 0; i < lines.size(); i++){
-			if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
-				lines[i]->remove();
-				std::cout<<"Removed the customer."<<std::endl;
+			if(!(lines[i]->getFirstCust() == nullptr)){
+				if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
+					lines[i]->remove();
+					std::cout<<"Removed the customer."<<std::endl;
+				}
 			}
 		}
 	}

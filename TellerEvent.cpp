@@ -30,7 +30,6 @@ void TellerEvent::action() {
 	//set the teller'state to INWORK
 	teller->setState(INWORK);
 	//ask for next consumer
-	std::cout<<"in TellerEvent action" << std::endl;
 	//if no consumer set state to REST
 	if (tellerLines->getNextCustomer(teller) == nullptr) {
 		teller->setState(REST);

@@ -14,6 +14,9 @@ TellerQueue::TellerQueue() :
 }
 
 TellerQueue::~TellerQueue() {
+	for(int i = 0; i < this->customerNum(); i++){
+		this->remove();
+	}
 	// TODO Auto-generated destructor stub
 }
 /**Adds a given customer to the teller queue

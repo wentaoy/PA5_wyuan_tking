@@ -43,7 +43,7 @@ void CustomerComplete::action() {
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(),
 				teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to be changed with eventtime = time + idletime
 		eventQueue->insert(tComeback);
-		std::cout<<"no one in line i am on break"<< std::endl;
+		std::cout<<"Going on break"<< std::endl;
 	}
 	// if there is next customer then create new customercomplete event after a random service time
 	else {
@@ -53,7 +53,7 @@ void CustomerComplete::action() {
 				arvSerTime);
 		//keeping track of when customer called
 		nextCus->setCalledTime(time);
-		std::cout << "Damn I still need to work" << std::endl;
+		std::cout << "Keep working" << std::endl;
 		tellerLines->removeCustomer(nextCus);
 		eventQueue->insert(nextService);
 	}

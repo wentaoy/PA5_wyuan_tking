@@ -15,7 +15,9 @@ EventQueue::EventQueue() :
 }
 
 EventQueue::~EventQueue() {
-	// TODO Auto-generated destructor stub
+	while(!this->isEmpty()){
+		this->deleteHead();
+	}
 }
 
 /**inserts an event into the eventQueue in the right place
