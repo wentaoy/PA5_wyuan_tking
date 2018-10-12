@@ -78,7 +78,7 @@ void TellerQueueVec::addCustomer(Customer* acustomer){
 		lines[0]->add(acustomer);
 	}else{
 		int shortest = 0;
-		for(int i = 0; i  < lines.size(); i++){
+		for(int i = 0; i  < (int)lines.size(); i++){
 			if(lines[i]->customerNum() < lines[shortest]->customerNum()){
 				shortest = i;
 			}
@@ -94,11 +94,10 @@ void TellerQueueVec::removeCustomer(Customer* acustomer){
 	if(lines.size() == 1){
 		lines[0]->remove();
 	}else{
-		for(int i = 0; i < lines.size(); i++){
+		for(int i = 0; i < (int)lines.size(); i++){
 			if(!(lines[i]->getFirstCust() == nullptr)){
 				if(lines[i]->getFirstCust()->getArrivalTime() == acustomer->getArrivalTime()){
 					lines[i]->remove();
-					std::cout<<"Removed the customer."<<std::endl;
 				}
 			}
 		}

@@ -26,6 +26,5 @@ CustomerArrival::~CustomerArrival() {
  */
 void CustomerArrival::action(){
 	tellerLines->addCustomer(customer);
-	std::cout << "Customer Arrives at " << customer->getArrivalTime() <<" added to tellerLine." << std::endl;
 }
 

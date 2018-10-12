@@ -130,16 +130,14 @@ int main(int argc, char *argv[]) {
 
 	//starts the simulation for common line
 	float worldTime = 0;
-	while (!eqCommon->isEmpty() && worldTime < simulateTime && completedCusCommon->size() < customerNum) {
+	while ((int)completedCusCommon->size() < customerNum) {
 		eqCommon->getHead()->data->action();
-		std::cout<< "Ends" << std::endl;
 		worldTime = eqCommon->getHead()->data->getTime();
 		eqCommon->deleteHead();
 	}
 	//destructing eqCommon
-
 	eqCommon->~EventQueue();
-	std::cout << worldTime <<std::endl;
+
 	//collect statistics
 	//number of customers served
 	int numCustSerCommon = completedCusCommon->size();
@@ -147,7 +145,7 @@ int main(int argc, char *argv[]) {
 	float totTellSerTimeCommon = 0;
 	float maxWaitTimeCommon = 0;
 	float sumOfSquaresCommon = 0;
-	for(int i = 0; i < completedCusCommon->size(); i++){
+	for(int i = 0; i < (int)completedCusCommon->size(); i++){
 		//if this wait time is greater than all before set it as max
 		if(((*completedCusCommon)[i]->getCalledTime() - (*completedCusCommon)[i]->getArrivalTime()) > maxWaitTimeCommon){
 			maxWaitTimeCommon = (*completedCusCommon)[i]->getCalledTime() - (*completedCusCommon)[i]->getArrivalTime();
@@ -161,11 +159,11 @@ int main(int argc, char *argv[]) {
 	for(int i = 0; i < tellerNum; i ++){
 		tellIdleTimeCommon = tellIdleTimeCommon + tellerVec[i]->getIdleTime();
 	}
-	for(int i = 0; i < completedCusCommon->size(); i++){
+	for(int i = 0; i < (int)completedCusCommon->size(); i++){
 		sumOfSquaresCommon = sumOfSquaresCommon + pow(((*completedCusCommon)[i]->getLeaveTime() - (*completedCusCommon)[i]->getArrivalTime()) - avrTimeInBankCommon, 2);
 	}
 	float stdDevCommon = sqrt(sumOfSquaresCommon/ completedCusCommon->size());
-	std::cout<<"Type of queuing is: common "<<std::endl;
+	std::cout<<"-----------------Type of queuing is: common ----------------"<<std::endl;
 	std::cout<<"Number of tellers: " << tellerNum << std::endl;
 	std::cout<<"The total idle time is: " << tellIdleTimeCommon<<std::endl;
 	std::cout<<"The number of customers for common is: "<< numCustSerCommon << std::endl;
@@ -175,17 +173,16 @@ int main(int argc, char *argv[]) {
 	std::cout<<"The time required to serve all customers for common is: "<<worldTime<<std::endl;
 	std::cout<<"The standard deviation of time spent in bank for common is: "<< stdDevCommon << std::endl;
 	delete completedCusCommon;
-	//to-do start mutiline simulation
+	// start mutiline simulation
 
 
 	worldTime = 0;
-	while (!eqMuti->isEmpty() && worldTime < simulateTime && completedCusMuti->size() < customerNum) {
+	while ((int)completedCusMuti->size() < customerNum){//!eqMuti->isEmpty() && worldTime < simulateTime && (int)completedCusMuti->size() < customerNum) {
 		eqMuti->getHead()->data->action();
-		std::cout<< "Ends" << std::endl;
 		worldTime = eqMuti->getHead()->data->getTime();
 		eqMuti->deleteHead();
 	}
-	std::cout << worldTime <<std::endl;
+
 	eqMuti->~EventQueue();
 
 	//collect statistics
@@ -194,7 +191,7 @@ int main(int argc, char *argv[]) {
 	float totTellSerTimeMuti = 0;
 	float maxWaitTimeMuti = 0;
 	float sumOfSquaresMuti = 0;
-	for(int i = 0; i < completedCusMuti->size(); i++){
+	for(int i = 0; i < (int)completedCusMuti->size(); i++){
 		//if this wait time is greater than all before set it as max
 		if(((*completedCusMuti)[i]->getCalledTime() - (*completedCusMuti)[i]->getArrivalTime()) > maxWaitTimeMuti){
 			maxWaitTimeMuti = (*completedCusMuti)[i]->getCalledTime() - (*completedCusMuti)[i]->getArrivalTime();
@@ -208,11 +205,11 @@ int main(int argc, char *argv[]) {
 		tellIdleTimeMuti = tellIdleTimeMuti + tellerVec[i]->getIdleTime();
 	}
 	float avrTimeInBankMuti = totTellSerTimeMuti / numCustSerMuti;
-	for(int i = 0; i < completedCusMuti->size(); i++){
+	for(int i = 0; i < (int)completedCusMuti->size(); i++){
 		sumOfSquaresMuti = sumOfSquaresMuti + pow(((*completedCusMuti)[i]->getLeaveTime() - (*completedCusMuti)[i]->getArrivalTime()) - avrTimeInBankMuti, 2);
 	}
 	float stdDevMuti = sqrt(sumOfSquaresMuti/ completedCusMuti->size());
-	std::cout<<"Type of queuing is: multiple "<<std::endl;
+	std::cout<<"--------------Type of queuing is: multiple ---------------"<<std::endl;
 	std::cout<<"Number of tellers: " << tellerNum << std::endl;
 	std::cout<<"The number of customers for multiple is: "<< numCustSerMuti << std::endl;
 	std::cout<<"The total idle time is: " << tellIdleTimeMuti<<std::endl;

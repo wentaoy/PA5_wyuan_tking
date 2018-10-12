@@ -38,7 +38,6 @@ void TellerEvent::action() {
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to change constructor
 		// insert the teller event
 		eventQueue->insert(tComeback);
-		std::cout<<"in TellerEvent action2" << std::endl;
 	}
 	//if there is next consumer create consumercomplete event with after random service time
 	else{
@@ -48,7 +47,6 @@ void TellerEvent::action() {
 		tellerLines->getNextCustomer(teller)->setCalledTime(time);
 		tellerLines->removeCustomer(tellerLines->getNextCustomer(teller));
 		eventQueue->insert(nextService);
-		std::cout<<"in TellerEvent action3" << std::endl;
 	}
 }
 
