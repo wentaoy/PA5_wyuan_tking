@@ -8,6 +8,7 @@
 #ifndef EVENT_H_
 #define EVENT_H_
 
+
 class Event {
 public:
 	Event();
@@ -15,8 +16,8 @@ public:
 	float getTime();
 	virtual void action();
 	virtual ~Event();
-protected:
 	float time;
+	friend class EventQueuePrior;
 };
 
 #endif /* EVENT_H_ */

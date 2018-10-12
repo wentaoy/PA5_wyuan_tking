@@ -9,12 +9,12 @@
 #include <iostream>
 
 TellerEvent::TellerEvent() :
-		Event(), teller(nullptr), tellerLines(nullptr), eventQueue(nullptr), arvSerTime(0), completedCus(nullptr){
+		Event(), teller(nullptr), tellerLines(nullptr), eventQueuePrior(nullptr), arvSerTime(0), completedCus(nullptr){
 	// TODO Auto-generated constructor stub
 }
 
-TellerEvent::TellerEvent(float time, Teller* ateller, TellerQueueVec* atellerQVec, EventQueue* aeventQ, float aarvSerT, std::vector<Customer*>* acustComplete):
-		Event(time), teller(ateller), tellerLines(atellerQVec), eventQueue(aeventQ), arvSerTime(aarvSerT), completedCus(acustComplete){
+TellerEvent::TellerEvent(float time, Teller* ateller, TellerQueueVec* atellerQVec, EventQueuePrior* aeventQ, float aarvSerT, std::vector<Customer*>* acustComplete):
+		Event(time), teller(ateller), tellerLines(atellerQVec), eventQueuePrior(aeventQ), arvSerTime(aarvSerT), completedCus(acustComplete){
 
 }
 //another constructor
@@ -35,18 +35,18 @@ void TellerEvent::action() {
 		teller->setState(REST);
 		teller->addToTotIdleTime(teller->getIdleTime());
 		// create the teller comeback event
-		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to change constructor
+		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(), teller, tellerLines, eventQueuePrior, arvSerTime, completedCus); //need to change constructor
 		// insert the teller event
-		eventQueue->insert(tComeback);
+		eventQueuePrior->insert(tComeback);
 	}
 	//if there is next consumer create consumercomplete event with after random service time
 	else{
 		float randSerTime =  2*arvSerTime*rand()/float(RAND_MAX);
-		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, tellerLines->getNextCustomer(teller), tellerLines, teller, completedCus, eventQueue, arvSerTime); // need to change constructor
+		CustomerComplete* nextService = new CustomerComplete(time + randSerTime, tellerLines->getNextCustomer(teller), tellerLines, teller, completedCus, eventQueuePrior, arvSerTime); // need to change constructor
 		//keeping track of when customer called
 		tellerLines->getNextCustomer(teller)->setCalledTime(time);
 		tellerLines->removeCustomer(tellerLines->getNextCustomer(teller));
-		eventQueue->insert(nextService);
+		eventQueuePrior->insert(nextService);
 	}
 }
 

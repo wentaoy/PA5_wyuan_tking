@@ -13,18 +13,19 @@
 #include "TellerQueueVec.h"
 #include "Customer.h"
 #include "EventQueue.h"
+#include "EventQueuePrior.h"
 #include "CustomerComplete.h"
 #include <stdlib.h>
 class TellerEvent: public Event {
 public:
 	TellerEvent();
-	TellerEvent(float , Teller*, TellerQueueVec*, EventQueue*, float, std::vector<Customer*>*);
+	TellerEvent(float , Teller*, TellerQueueVec*, EventQueuePrior*, float, std::vector<Customer*>*);
 	virtual ~TellerEvent();
 	void action();
 private:
 	Teller* teller;
 	TellerQueueVec* tellerLines;
-	EventQueue* eventQueue;
+	EventQueuePrior* eventQueuePrior;
 	float arvSerTime;
 	std::vector<Customer*>* completedCus;
 };

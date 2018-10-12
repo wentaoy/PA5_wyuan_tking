@@ -20,13 +20,13 @@ Event::~Event() {
 /** Returns the time when the event happens
  * @return float time of event
  */
-float Event::getTime(){
+float Event::getTime() {
 	return time;
 }
 /**Prints out error message if attempts to call action on this object
  *
  */
-void Event::action(){
+void Event::action() {
 	std::cout << "Error: what type of the event has the action" << std::endl;
 }
 

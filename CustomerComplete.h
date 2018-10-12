@@ -12,17 +12,18 @@
 #include "TellerQueue.h"
 #include "TellerEvent.h"
 #include "EventQueue.h"
+#include "EventQueuePrior.h"
 
 class CustomerComplete: public CustomerEvent {
 public:
 	CustomerComplete();
-	CustomerComplete(float time,Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, std::vector<Customer*>* acusComplete, EventQueue* aeventQ, float aarvSerT);
+	CustomerComplete(float time,Customer* aCustomer, TellerQueueVec* aTellLine, Teller* ateller, std::vector<Customer*>* acusComplete, EventQueuePrior* aeventQ, float aarvSerT);
 	virtual ~CustomerComplete();
 	virtual void action();
 private:
 	Teller* teller;
 	std::vector<Customer*>* completedCus;
-	EventQueue* eventQueue;
+	EventQueuePrior* eventQueuePrior;
 	float arvSerTime;
 };
 

@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include "EventQueue.h"
+#include "Event.h"
 
 EventQueue::EventQueue() :
 		head(NULL), tail(NULL) {

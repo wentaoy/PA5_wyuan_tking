@@ -9,15 +9,15 @@
 #include <iostream>
 
 CustomerComplete::CustomerComplete() :
-		CustomerEvent(), teller(nullptr), completedCus(nullptr), eventQueue(
+		CustomerEvent(), teller(nullptr), completedCus(nullptr), eventQueuePrior(
 				nullptr), arvSerTime(0) {
 }
 
 CustomerComplete::CustomerComplete(float time, Customer* aCustomer,
 		TellerQueueVec* aTellLine, Teller* ateller, std::vector<Customer*>* acusComplete,
-		EventQueue* aeventQ, float aarvSerT) :
+		EventQueuePrior* aeventQ, float aarvSerT) :
 		CustomerEvent(time, aCustomer, aTellLine), teller(ateller), completedCus(
-				acusComplete), eventQueue(aeventQ), arvSerTime(aarvSerT) {
+				acusComplete), eventQueuePrior(aeventQ), arvSerTime(aarvSerT) {
 
 }
 // need another Constructor
@@ -39,18 +39,18 @@ void CustomerComplete::action() {
 		teller->setState(REST);
 		teller->addToTotIdleTime(teller->getIdleTime());
 		TellerEvent* tComeback = new TellerEvent(time + teller->getIdleTime(),
-				teller, tellerLines, eventQueue, arvSerTime, completedCus); //need to be changed with eventtime = time + idletime
-		eventQueue->insert(tComeback);
+				teller, tellerLines, eventQueuePrior, arvSerTime, completedCus); //need to be changed with eventtime = time + idletime
+		eventQueuePrior->insert(tComeback);
 	}
 	// if there is next customer then create new customercomplete event after a random service time
 	else {
 		float randSerTime = 2 * arvSerTime * rand() / float(RAND_MAX);
 		CustomerComplete* nextService = new CustomerComplete(time + randSerTime,
-				nextCus, tellerLines, teller, completedCus, eventQueue,
+				nextCus, tellerLines, teller, completedCus, eventQueuePrior,
 				arvSerTime);
 		//keeping track of when customer called
 		nextCus->setCalledTime(time);
 		tellerLines->removeCustomer(nextCus);
-		eventQueue->insert(nextService);
+		eventQueuePrior->insert(nextService);
 	}
 }
